@@ -27,6 +27,7 @@ class App extends Component {
             this.setState({ tasks: json }) // update a state
         })
     }
+
     render() {
         return (
             <div className="App">
@@ -37,6 +38,9 @@ class App extends Component {
                         })
                     }
                 </div>
+                <form>
+                    <input type="search"></input>
+                </form>
             </div>
         );
     }
