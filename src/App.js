@@ -12,7 +12,8 @@ class App extends Component {
                         name: "asdf"
                     }
                 }
-            ]
+            ],
+            newTasks: []
         }
     }
 
@@ -25,7 +26,15 @@ class App extends Component {
         .then( response => response.json() ) // json to object
         .then( json => {
             this.setState({ tasks: json }) // update a state
+            this.setState({ newTasks: json })
         })
+    }
+
+    filterList = (e) => {
+        const updateList = this.state.tasks.filter(( task ) => {
+            return task.basicInfo.name.toLowerCase().search( e.target.value.toLowerCase()) !== -1;
+        })
+        this.setState({newTasks: updateList})
     }
 
     render() {
@@ -33,13 +42,13 @@ class App extends Component {
             <div className="App">
                 <div className="tasks">
                     {
-                        this.state.tasks.map( task => {
+                        this.state.newTasks.map( task => {
                             return <div className="task" key={ task.id } > { task.basicInfo.name }</div>
                         })
                     }
                 </div>
                 <form>
-                    <input type="search"></input>
+                    <input type="search" onChange={this.filterList}/>
                 </form>
             </div>
         );
