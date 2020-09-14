@@ -40,16 +40,22 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <div className="tasks">
-                    {
-                        this.state.newTasks.map( task => {
-                            return <div className="task" key={ task.id } > { task.basicInfo.name }</div>
-                        })
-                    }
+                <div className="tasksArea">
+                    <ul className="tasks">
+                        {
+                            this.state.newTasks.map( task => {
+                                return(
+                                    <li className="task" key={ task.id }> { task.basicInfo.name } </li>
+                                );
+                            })
+                        }
+                    </ul>
                 </div>
-                <form>
-                    <input type="search" onChange={this.filterList}/>
-                </form>
+                <div className="formArea">
+                    <form className="searchForm">
+                        <input type="text" placeholder="Search form" onChange={this.filterList}/>
+                    </form>
+                </div>
             </div>
         );
     }
