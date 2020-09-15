@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import ModalWindow from './ModalWindow';
 
 class App extends Component {
     constructor() {
@@ -41,6 +42,7 @@ class App extends Component {
         return (
             <div className="App">
                 <div className="tasksArea">
+                    <ModalWindow></ModalWindow>
                     <ul className="tasks">
                         {
                             this.state.newTasks.map( task => {
