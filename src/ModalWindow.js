@@ -15,10 +15,10 @@ const customStyles = {
 Modal.setAppElement('#root')
 
 class ModalWindow extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            modalIsOpen: false
+            modalIsOpen: this.props.isOpen
         };
         this.openModal = this.openModal.bind(this);
         this.afterOpenModal = this.afterOpenModal.bind(this);
@@ -37,7 +37,6 @@ class ModalWindow extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={this.openModal}> OPEN MODAL !!</button>
                 <Modal
                   isOpen={this.state.modalIsOpen}
                   onAfterOpen={this.state.afterOpenModal}
@@ -47,7 +46,7 @@ class ModalWindow extends React.Component {
                 >
                     <h2 ref={subtitle => this.subtitle = subtitle}> ModalWindow </h2>
                     <div> Opend </div>
-                    <button onClick={this.closeModal}> close </button>
+                    <button onClick={() => this.props.closeFunc()}> close </button>
                 </Modal>
             </div>
         );

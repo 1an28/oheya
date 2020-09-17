@@ -6,6 +6,7 @@ class App extends Component {
     constructor() {
         super()
         this.state = {
+            modalIsOpen: false,
             tasks: [
                 {
                     id: 1,
@@ -38,16 +39,24 @@ class App extends Component {
         this.setState({newTasks: updateList})
     }
 
+    closeModal() {
+        this.setState({modalIsOpen: false});
+    }
+
     render() {
         return (
             <div className="App">
                 <div className="tasksArea">
-                    <ModalWindow></ModalWindow>
+                    {
+                        this.state.modalIsOpen &&
+                            <ModalWindow isOpen={this.state.modalIsOpen} closeFunc={() => {this.closeModal()}}></ModalWindow>
+                        
+                    }
                     <ul className="tasks">
                         {
                             this.state.newTasks.map( task => {
                                 return(
-                                    <li className="task" key={ task.id }> { task.basicInfo.name } </li>
+                                    <li className="task" key={ task.id } onClick={() => this.setState({modalIsOpen: true})}> { task.basicInfo.name } </li>
                                 );
                             })
                         }
