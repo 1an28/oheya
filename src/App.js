@@ -7,27 +7,21 @@ class App extends Component {
         super()
         this.state = {
             modalIsOpen: false,
-            tasks: [
-                {
-                    id: 1,
-                    basicInfo: {
-                        name: "asdf"
-                    }
-                }
-            ],
+            modalData: {},
+            tasks: [],
             newTasks: []
         }
     }
 
-    componentWillMount() { // just before App displays on the page.
+    componentDidMount() { /* just before App displays on the page.*/
         this.fetchData()
     }
 
     fetchData() {
-        fetch("http://localhost:3001/sampleData") // get a data
-        .then( response => response.json() ) // json to object
+        fetch("http://localhost:3001/sampleData") /* get a data*/
+        .then( response => response.json() ) /* json to object*/
         .then( json => {
-            this.setState({ tasks: json }) // update a state
+            this.setState({ tasks: json }) /* update a state*/
             this.setState({ newTasks: json })
         })
     }
@@ -43,20 +37,32 @@ class App extends Component {
         this.setState({modalIsOpen: false});
     }
 
+    openModal( task ) {
+        this.setState({modalIsOpen: true});
+        this.setState({modalData: task});
+        console.log(toString.call(task.id));
+        console.log(task.id);
+        console.log(JSON.stringify(task));
+
+    }   
+    
+
     render() {
         return (
             <div className="App">
                 <div className="tasksArea">
                     {
                         this.state.modalIsOpen &&
-                            <ModalWindow isOpen={this.state.modalIsOpen} closeFunc={() => {this.closeModal()}}></ModalWindow>
+                            <ModalWindow isOpen={true} closeFunc={() => {this.closeModal()}} data={this.state.modalData}></ModalWindow>
                         
                     }
+                    <div></div>
+                    
                     <ul className="tasks">
                         {
                             this.state.newTasks.map( task => {
                                 return(
-                                    <li className="task" key={ task.id } onClick={() => this.setState({modalIsOpen: true})}> { task.basicInfo.name } </li>
+                                    <li className="task" key={ task.id } onClick={() => this.openModal(task)}> { task.basicInfo.name } </li>
                                 );
                             })
                         }

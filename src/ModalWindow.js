@@ -44,8 +44,8 @@ class ModalWindow extends React.Component {
                   style={customStyles}
                   contentLabel="Exsample Modal"
                 >
-                    <h2 ref={subtitle => this.subtitle = subtitle}> ModalWindow </h2>
-                    <div> Opend </div>
+                    <h2 ref={subtitle => this.subtitle = subtitle}>{JSON.stringify(this.props.data)}</h2>
+                    <div>asdf</div>
                     <button onClick={() => this.props.closeFunc()}> close </button>
                 </Modal>
             </div>
