@@ -32,6 +32,7 @@ class ModalWindow extends React.Component {
     }
     closeModal() {
         this.setState({modalIsOpen: false});
+        this.props.closeFunc();
     }
 
     render() {
@@ -43,9 +44,13 @@ class ModalWindow extends React.Component {
                   onRequestClose={this.state.closeModal}
                   style={customStyles}
                   contentLabel="Exsample Modal"
+                  shouldCloseOnOverlayClick={true}
                 >
-                    <h2 ref={subtitle => this.subtitle = subtitle}>{JSON.stringify(this.props.data)}</h2>
-                    <div>asdf</div>
+                    <h2 ref={subtitle => this.subtitle = subtitle}> { this.props.data.basicInfo.name } </h2>
+                    <ul>
+                        <li> address = {this.props.data.basicInfo.address} </li>
+                    </ul>
+
                     <button onClick={() => this.props.closeFunc()}> close </button>
                 </Modal>
             </div>
