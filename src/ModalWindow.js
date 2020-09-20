@@ -48,7 +48,11 @@ class ModalWindow extends React.Component {
                 >
                     <h2 ref={subtitle => this.subtitle = subtitle}> { this.props.data.basicInfo.name } </h2>
                     <ul>
-                        <li> address = {this.props.data.basicInfo.address} </li>
+                        <li> address : {this.props.data.basicInfo.address} </li>
+                        <li> layout : {this.props.data.basicInfo.layout} </li>
+                        <li> area : {this.props.data.basicInfo.area} m^2</li>
+                        <li> type : {this.props.data.basicInfo.type} </li>
+                        <li> floor : {this.props.data.basicInfo.floor.thisFloor} / {this.props.data.basicInfo.floor.wholeFloor} </li>
                     </ul>
 
                     <button onClick={() => this.props.closeFunc()}> close </button>

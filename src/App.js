@@ -9,7 +9,9 @@ class App extends Component {
             modalIsOpen: false,
             modalData: {},
             tasks: [],
-            newTasks: []
+            newTasks: [],
+            areaForm: "",
+            textForm: ""
         }
     }
 
@@ -26,11 +28,33 @@ class App extends Component {
         })
     }
 
-    filterList = (e) => {
-        const updateList = this.state.tasks.filter(( task ) => {
-            return task.basicInfo.name.toLowerCase().search( e.target.value.toLowerCase()) !== -1;
+    filter() {
+        let updateList = this.state.tasks;
+        updateList =  updateList.filter(( task ) => {
+            return task.basicInfo.name.toLowerCase().search( this.state.textForm.toLowerCase()) !== -1;
         })
-        this.setState({newTasks: updateList})
+        updateList = updateList.filter((task) => task.basicInfo.area > this.state.areaForm);
+        this.setState({newTasks: updateList});
+        console.log("after filter object : " + updateList);
+    }
+
+    filterList = (e) => {
+        this.setState({
+            textForm: e.target.value
+        }, () => {
+            this.filter()
+        })
+        console.log("NEW TEXT: " + this.state.textForm);
+    }
+    
+
+    filterArea = (e) => {
+        this.setState({
+            areaForm: e.target.value
+        }, () => {
+            this.filter()
+        })
+        console.log("NEW AREA: " + this.state.areaForm);
     }
 
     closeModal() {
@@ -40,10 +64,6 @@ class App extends Component {
     openModal( task ) {
         this.setState({modalIsOpen: true});
         this.setState({modalData: task});
-        console.log(toString.call(task.id));
-        console.log(task.id);
-        console.log(JSON.stringify(task));
-
     }   
     
 
@@ -62,7 +82,7 @@ class App extends Component {
                         {
                             this.state.newTasks.map( task => {
                                 return(
-                                    <li className="task" key={ task.id } onClick={() => this.openModal(task)}> { task.basicInfo.name } </li>
+                                <li className="task" key={ task.id } onClick={() => this.openModal(task)}> { task.basicInfo.name } : {task.basicInfo.area}</li>
                                 );
                             })
                         }
@@ -70,7 +90,10 @@ class App extends Component {
                 </div>
                 <div className="formArea">
                     <form className="searchForm">
-                        <input type="text" placeholder="Search form" onChange={this.filterList}/>
+                        <input className="searchInput" type="text" placeholder="Search form" onChange={this.filterList}/>
+                    </form>
+                    <form className="refineSearch">
+                        <input className="searchInput" type="text" placeholder="Minimum Area (m^2)" onChange={this.filterArea}/>
                     </form>
                 </div>
             </div>

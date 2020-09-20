@@ -42,10 +42,20 @@ ul li, ol li {
     font-weight: bold;
 }
 
-.searchForm input[type="text"] {
+.searchInput {
     width: 100%; /*親要素いっぱい広げる*/
     padding: 10px 15px; /*ボックスを大きくする*/
     font-size: 16px;
     border-radius: 3px; /*ボックス角の丸み*/
     border: 2px solid #ddd; /*枠線*/
+}
+
+.searchForm {
+    width: 100%;
+    height: 10%;
+}
+
+.refineSearch {
+    width: 100%;
+    height: 10%;
 }
