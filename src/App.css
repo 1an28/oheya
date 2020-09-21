@@ -19,9 +19,10 @@
     width: 50%;
     height: 100%;
     background-color: darkgrey;
+
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: start;
 }
 
 .tasks {

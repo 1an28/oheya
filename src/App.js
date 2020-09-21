@@ -11,7 +11,9 @@ class App extends Component {
             tasks: [],
             newTasks: [],
             areaForm: "",
-            textForm: ""
+            textForm: "",
+            miniFloor: null,
+            maxFloor: null
         }
     }
 
@@ -34,8 +36,17 @@ class App extends Component {
             return task.basicInfo.name.toLowerCase().search( this.state.textForm.toLowerCase()) !== -1;
         })
         updateList = updateList.filter((task) => task.basicInfo.area > this.state.areaForm);
+        if (Number.isInteger(parseInt(this.state.miniFloor))) {
+            console.log("通kぁ");
+            updateList = updateList.filter((task) => task.basicInfo.floor.thisFloor >= this.state.miniFloor);
+        }
+        if (Number.isInteger(parseInt(this.state.maxFloor))) {
+            updateList = updateList.filter((task) => task.basicInfo.floor.thisFloor <= this.state.maxFloor);
+        }   
+        
         this.setState({newTasks: updateList});
         console.log("after filter object : " + updateList);
+        console.log("mini floor: " + this.state.miniFloor + ", max floor: " + this.state.maxFloor);
     }
 
     filterList = (e) => {
@@ -55,6 +66,22 @@ class App extends Component {
             this.filter()
         })
         console.log("NEW AREA: " + this.state.areaForm);
+    }
+
+    filterMiniFloor = (e) => {
+        this.setState({
+            miniFloor: e.target.value
+        }, () => {
+            this.filter()
+        })
+    }
+
+    filterMaxFloor = (e) => {
+        this.setState({
+            maxFloor: e.target.value
+        }, () => {
+            this.filter()
+        })
     }
 
     closeModal() {
@@ -82,7 +109,7 @@ class App extends Component {
                         {
                             this.state.newTasks.map( task => {
                                 return(
-                                <li className="task" key={ task.id } onClick={() => this.openModal(task)}> { task.basicInfo.name } : {task.basicInfo.area}</li>
+                                <li className="task" key={ task.id } onClick={() => this.openModal(task)}> { task.basicInfo.name } : {task.basicInfo.area} : {task.basicInfo.floor.thisFloor}</li>
                                 );
                             })
                         }
@@ -94,12 +121,22 @@ class App extends Component {
                         <input className="searchInput" type="text" placeholder="Search form" onChange={this.filterList}/>
                         <div className="subText">を含む</div>
                     </form>
-                         
-                 
+
                     <form className="refineSearch">
-                        <input className="searchInput" type="text" placeholder="Minimum Area (m^2)" onChange={this.filterArea}/>
+                        <input className="searchInput" type="text" placeholder="Minimum Area (㎡)" onChange={this.filterArea}/>
                         <div className="subText">㎡以上の面積</div> 
                     </form>
+
+                    <form className="refineSearch">
+                        <input className="searchInput" type="text" placeholder="minimum floor." onChange={this.filterMiniFloor}/>
+                        <div className="subText">階以上</div> 
+                    </form>
+
+                    <form className="refineSearch">
+                        <input className="searchInput" type="text" placeholder="maximum floor." onChange={this.filterMaxFloor}/>
+                        <div className="subText">階以下</div> 
+                    </form>
+
                 </div>
             </div>
         );
