@@ -1,33 +1,36 @@
 *{
     box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 .App {
     height: 100vh;
+    display: flex;
 }
 
 .tasksArea {
-    text-align: left;
-    float: left;
     width: 50%;
     height: 100%;
     background-color: cornsilk;
 }
 
 .formArea {
-    float: right;
-    text-align: center;
     width: 50%;
     height: 100%;
     background-color: darkgrey;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .tasks {
-    margin: 2vh 1vw;
-}
-
-ul {
-    padding: 0;
+    box-sizing: border-box;
+    padding: 3vh 2vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
 }
   
 ul li, ol li {
@@ -43,19 +46,14 @@ ul li, ol li {
 }
 
 .searchInput {
-    width: 100%; /*親要素いっぱい広げる*/
     padding: 10px 15px; /*ボックスを大きくする*/
     font-size: 16px;
     border-radius: 3px; /*ボックス角の丸み*/
     border: 2px solid #ddd; /*枠線*/
 }
 
-.searchForm {
-    width: 100%;
-    height: 10%;
-}
-
-.refineSearch {
-    width: 100%;
-    height: 10%;
+.formArea form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

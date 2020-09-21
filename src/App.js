@@ -89,11 +89,16 @@ class App extends Component {
                     </ul>
                 </div>
                 <div className="formArea">
-                    <form className="searchForm">
+
+                    <form className="textSearch">
                         <input className="searchInput" type="text" placeholder="Search form" onChange={this.filterList}/>
+                        <div className="subText">を含む</div>
                     </form>
+                         
+                 
                     <form className="refineSearch">
                         <input className="searchInput" type="text" placeholder="Minimum Area (m^2)" onChange={this.filterArea}/>
+                        <div className="subText">㎡以上の面積</div> 
                     </form>
                 </div>
             </div>
