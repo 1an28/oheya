@@ -24,8 +24,10 @@ class Modal extends React.Component {
             <div>
                 <ReactModal
                   isOpen={this.state.showModal}
+                  onRequestClose={this.handleCloseModal}
+                  shouldCloseOnOverlayClick={true}
                 >
-                    {this.props.data}
+                    {this.props.data.id}
                     <button onClick={this.handleCloseModal}>Close Modal</button>
                 </ReactModal>
             </div>

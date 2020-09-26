@@ -18,9 +18,13 @@ class App extends Component {
         this.ModalRef = React.createRef();
         this.openModal = this.openModal.bind(this);
     }
+    
+    raiseModal(element) {
+        this.setState({selectedElement: element});
+        this.openModal();
+    }
 
-    openModal(element) {
-        this.setState({selectedElement: element.id});
+    openModal() {
         this.ModalRef.current.handleOpenModal();
     }
 
@@ -99,7 +103,7 @@ class App extends Component {
                         {
                             this.state.newTasks.map( task => {
                                 return(
-                                <li className="task" key={ task.id } onClick={() => this.openModal(task)}> { task.basicInfo.name } : {task.basicInfo.area} : {task.basicInfo.floor.thisFloor}</li>
+                                <li className="task" key={ task.id } onClick={() => this.raiseModal(task)}> { task.basicInfo.name } : {task.basicInfo.area} : {task.basicInfo.floor.thisFloor}</li>
                                 );
                             })
                         }
