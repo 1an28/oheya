@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import './App.css';
 import ModalWindow from './ModalWindow';
-
+import Modal from "./Modal";
 class App extends Component {
-    constructor() {
-        super()
+    constructor () {
+        super();
         this.state = {
-            modalIsOpen: false,
+            selectedElement: {},
             modalData: {},
             tasks: [],
             newTasks: [],
             areaForm: "",
             textForm: "",
             miniFloor: null,
-            maxFloor: null
-        }
+            maxFloor: null,
+        };
+        this.ModalRef = React.createRef();
+        this.openModal = this.openModal.bind(this);
+    }
+
+    openModal(element) {
+        this.setState({selectedElement: element.id});
+        this.ModalRef.current.handleOpenModal();
     }
 
     componentDidMount() { /* just before App displays on the page.*/
@@ -37,7 +44,6 @@ class App extends Component {
         })
         updateList = updateList.filter((task) => task.basicInfo.area > this.state.areaForm);
         if (Number.isInteger(parseInt(this.state.miniFloor))) {
-            console.log("通kぁ");
             updateList = updateList.filter((task) => task.basicInfo.floor.thisFloor >= this.state.miniFloor);
         }
         if (Number.isInteger(parseInt(this.state.maxFloor))) {
@@ -84,27 +90,11 @@ class App extends Component {
         })
     }
 
-    closeModal() {
-        this.setState({modalIsOpen: false});
-    }
-
-    openModal( task ) {
-        this.setState({modalIsOpen: true});
-        this.setState({modalData: task});
-    }   
-    
-
     render() {
         return (
             <div className="App">
-                <div className="tasksArea">
-                    {
-                        this.state.modalIsOpen &&
-                            <ModalWindow isOpen={true} closeFunc={() => {this.closeModal()}} data={this.state.modalData}></ModalWindow>
-                        
-                    }
-                    <div></div>
-                    
+                <Modal ref={this.ModalRef} data={this.state.selectedElement}/>
+                <div className="tasksArea">                   
                     <ul className="tasks">
                         {
                             this.state.newTasks.map( task => {
